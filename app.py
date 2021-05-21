@@ -9,11 +9,12 @@ from ast import literal_eval
 
 app = Flask(__name__)
 
-@app.route("/after_sales/load_books/", methods=['GET'])
-def load_books():
-    id_book_rating_emails = request.args['id_book_rating_emails']
+
+@app.route("/after_sales/load_books/<id_book_rating_emails>", methods=['GET'])
+def load_books(id_book_rating_emails):
     response = db_emails.get_book_rating_emails_by_id(id_book_rating_emails)
     return response
+
 
 @app.route("/after_sales/post_rating/", methods=['POST'])
 def post_rating():

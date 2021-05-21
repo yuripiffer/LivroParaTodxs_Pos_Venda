@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from DataBase import db_books
 db_books  = db_books.Database()
+import pandas as pd
 
 
 class DataBase:
@@ -31,17 +32,19 @@ class DataBase:
         self.bre.insert_many(query)
 
     def get_book_rating_emails_by_id(self, id_book_rating_emails):
-        """ CHECAR COM CARINHO AMANHÃ!
-        """
-        item_book_rating_emails = self.bre.find({"_id": ObjectId(id_book_rating_emails)})
-        list_id_books = item_book_rating_emails["id_products"]
-        dict_books_and_status = db_books.get_many_books(list_id_books)
-        return dict_books_and_status
+        try:
+            item_book_rating_emails = self.bre.find({"_id": ObjectId(id_book_rating_emails)})
+            list_id_books = item_book_rating_emails["id_products"]
+            dict_books_and_status = db_books.get_many_books(list_id_books)
+            return dict_books_and_status
+        except:
+            return Exception, 500
 
     def update_email_status_to_true(self, id_books_rating_emails):
-        """
-        CHECAR COM CARINHO AMANHÃ!
-        :param id_books_rating_emails:
-        :return:
-        """
-        self.bre.updateOne({"_id": ObjectId(id_books_rating_emails)}, {"$set": {"was_sent": True}})
+        self.bre.update_one({"_id": id_books_rating_emails}, {"$set": {"was_sent": True}})
+
+
+# resultado = DataBase().bre.find({"was_sent": False})
+# print(pd.DataFrame(resultado))
+
+# DataBase().insert_orders_in_book_rating_emails([{'id_order':'60a3fb079f5cf6c89b8f22f7'}, {'id_order':'60a3fb079f5cf6c89b8f22f7'}])
