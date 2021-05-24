@@ -20,13 +20,13 @@ class Database:
             actual_rating = book_info[0]["rating"]
             comments = book_info[0]["comments"]
             n_comments = len(comments)
-            return dict(actual_rating=actual_rating, n_comments=n_comments, comments=comments), 200
+            return actual_rating, n_comments, comments
         except ConnectionFailure as ex:
             return ex.args[0], 500
 
     def insert_book_rating_and_comments(self, id_book, new_rating, general_comments):
         try:
-            response = self.new_books.updateOne({"_id": ObjectId(id_book)}, {
+            response = self.new_books.update_one({"_id": ObjectId(id_book)}, {
                 "$set": {"rating": new_rating, "comments": general_comments}}).modified_count
             if response:
                 return "Ok", 200
