@@ -1,9 +1,9 @@
-import pymongo
 from bson.objectid import ObjectId
-from datetime import datetime
 from DataBase import db_books
-db_books  = db_books.Database()
+import pymongo
 import pandas as pd
+
+db_books  = db_books.Database()
 
 
 class DataBase:
@@ -44,7 +44,7 @@ class DataBase:
         self.bre.update_one({"_id": id_books_rating_emails}, {"$set": {"was_sent": True}})
 
 
-# resultado = DataBase().bre.find({"was_sent": False})
-# print(pd.DataFrame(resultado))
+resultado = DataBase().bre.find({"was_sent": False})
+print(pd.DataFrame(resultado))
 
-# DataBase().insert_orders_in_book_rating_emails([{'order_id':'60a3fb079f5cf6c89b8f22f7'}, {'order_id':'60a3fb079f5cf6c89b8f22f7'}])
+DataBase().insert_orders_in_book_rating_emails([{'order_id':'60a3fb079f5cf6c89b8f22f7'}, {'order_id':'60a3fb079f5cf6c89b8f22f7'}])
