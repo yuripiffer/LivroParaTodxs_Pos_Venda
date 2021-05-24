@@ -1,13 +1,11 @@
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import smtplib
-import requests
 from DataBase import db_book_rating_emails
+from Controllers import auth_controller
+from bson.objectid import ObjectId
+import smtplib
 
 db_book_rating_emails = db_book_rating_emails.DataBase()
-import auth_controller
-from flask import jsonify
-from bson.objectid import ObjectId
 
 SENDER = "livroparatodxs@outlook.com"
 PASSWORD = "zFD9L2Y@bRt5"

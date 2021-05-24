@@ -1,3 +1,5 @@
+import json
+from json.encoder import JSONEncoder
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from pymongo.errors import ConnectionFailure
@@ -36,12 +38,17 @@ class Database:
 
     def get_many_books(self, list_id_books):
         try:
-            query = "{'_id' : {'$in' : ["
-            for id in list_id_books:
-                query += f"ObjectId('{id}'), "
-            query += "]}}"
-            book_info = list(self.new_books.find(query))
-            return book_info, 200
-        except:
-            return Exception, 500
+            book_info = list(self.new_books.find({'_id':{'$in': self.convert_to_object_id(list_id_books)}}))
+            for i in range(len(book_info)):
+                book_info[i]['_id'] = str(book_info[i]['_id'])
+            return json.dumps(book_info), 200
+        except Exception as error:
+            return str(error.args[0]), 500
 
+    def convert_to_object_id(self, list_id_books):
+        list_objectid_books = []
+        
+        for id in list_id_books:
+            list_objectid_books.append(ObjectId(id))
+
+        return list_objectid_books
