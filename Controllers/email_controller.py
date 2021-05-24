@@ -4,6 +4,7 @@ from DataBase import db_book_rating_emails
 from Controllers import auth_controller
 from bson.objectid import ObjectId
 import smtplib
+import requests
 
 db_book_rating_emails = db_book_rating_emails.DataBase()
 
@@ -13,7 +14,6 @@ PASSWORD = "zFD9L2Y@bRt5"
 """ Camada que faz a conexão com o sistema de envio de emails
 e onde se tem a função de enviar o email
 """
-
 class MailControl:
 
     def build_email(self, receiver: str, title: str, message: str) -> bool:
@@ -50,23 +50,7 @@ class MailControl:
             for dict_sales in data_many_sales:
                 list_users_ids.append(ObjectId(dict_sales["user_id"]))
 
-        list_users_ids = [ObjectId("60a69cd9d8aa0cbd0545d24c"), ObjectId("60a69fcb63feb1663027970a")]
-        # data_many_users = requests.post(f"http://192.268.0.74:5030/users/list", dict(_id=list_users_ids))
-        # print(data_many_sales)
-        data_many_users = {
-            "users": [
-                {
-                    "email": "yuripiffer@hotmail.com",
-                    "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
-                    "id": "60a3fb759f5cf6c89b8f22fa"
-                },
-                {
-                    "email": "nadiavhansen@gmail.com",
-                    "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
-                    "id": "90a34b759f5cf6c89b8f22fb"
-                }
-            ]
-        }
+        data_many_users = requests.post(f"http://192.268.0.74:5030/users/list", dict(_id=list_users_ids))
 
         for data_one_sale in data_many_sales:
             print("data_one_sale", data_one_sale)
@@ -99,3 +83,33 @@ class MailControl:
 
 
 MailControl().send_email_to_user()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###list_users_ids = [ObjectId("60a69cd9d8aa0cbd0545d24c"), ObjectId("60a69fcb63feb1663027970a")]
+
+# data_many_users = {
+#     "users": [
+#         {
+#             "email": "yuripiffer@hotmail.com",
+#             "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
+#             "id": "60a3fb759f5cf6c89b8f22fa"
+#         },
+#         {
+#             "email": "nadiavhansen@gmail.com",
+#             "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
+#             "id": "90a34b759f5cf6c89b8f22fb"
+#         }
+#     ]
+# }
