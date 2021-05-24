@@ -2,6 +2,7 @@ from bson.objectid import ObjectId
 from DataBase import db_books
 import pymongo
 import pandas as pd
+import json
 
 db_books  = db_books.Database()
 
@@ -34,11 +35,11 @@ class DataBase:
     def get_book_rating_emails_by_id(self, id_book_rating_emails):
         try:
             item_book_rating_emails = self.bre.find({"_id": ObjectId(id_book_rating_emails)})
-            list_id_books = item_book_rating_emails["book_id"]
+            list_id_books = list(item_book_rating_emails)[0]['book_id']
             dict_books_and_status = db_books.get_many_books(list_id_books)
             return dict_books_and_status
-        except:
-            return Exception, 500
+        except Exception as error:
+            return str(error.args[0]), 500
 
     def update_email_status_to_true(self, id_books_rating_emails):
         self.bre.update_one({"_id": id_books_rating_emails}, {"$set": {"was_sent": True}})
