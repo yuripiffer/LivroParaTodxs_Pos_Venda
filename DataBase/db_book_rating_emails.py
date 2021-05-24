@@ -34,7 +34,7 @@ class DataBase:
     def get_book_rating_emails_by_id(self, id_book_rating_emails):
         try:
             item_book_rating_emails = self.bre.find({"_id": ObjectId(id_book_rating_emails)})
-            list_id_books = item_book_rating_emails["id_products"]
+            list_id_books = item_book_rating_emails["book_id"]
             dict_books_and_status = db_books.get_many_books(list_id_books)
             return dict_books_and_status
         except:
@@ -47,4 +47,4 @@ class DataBase:
 # resultado = DataBase().bre.find({"was_sent": False})
 # print(pd.DataFrame(resultado))
 
-# DataBase().insert_orders_in_book_rating_emails([{'id_order':'60a3fb079f5cf6c89b8f22f7'}, {'id_order':'60a3fb079f5cf6c89b8f22f7'}])
+# DataBase().insert_orders_in_book_rating_emails([{'order_id':'60a3fb079f5cf6c89b8f22f7'}, {'order_id':'60a3fb079f5cf6c89b8f22f7'}])

@@ -3,16 +3,27 @@ db_books = Database()
 
 
 def post_rating_controller(user_vote):
+    ### CHECAR COM O BRUNO
+    ### CHECAR COM O BRUNO
+    ### CHECAR COM O BRUNO O STATUS DE ERRO
+    ### CHECAR COM O BRUNO
     try:
         user_rating = user_vote["user_rating"]
-        id_book = user_vote["id_book"]
-        actual_rating, n_comments, comments = db_books.get_rating_and_total_comments(id_book)
+        if user_rating not in [1,2,3,4,5]:
+            return "Stars rating error", 400
+        book_id = user_vote["book_id"]
+        if len(book_id) != 24:
+            return "invalid book_id length", 400
+
+        actual_rating, n_comments, comments = db_books.get_rating_and_total_comments(book_id)
+
         new_rating = calculate_new_rating(user_rating, actual_rating, n_comments)
         general_comments = add_user_comment_to_general_comments(user_vote["comment"], comments)
-        response = db_books.insert_book_rating_and_comments(id_book, new_rating, general_comments)
+
+        response = db_books.insert_book_rating_and_comments(book_id, new_rating, general_comments)
         return response
     except:
-        return Exception, 400
+        return Exception, 500
 
 
 def calculate_new_rating(user_rating, actual_rating, n_comments):
