@@ -17,5 +17,8 @@ URL_CLUSTER = "mongodb+srv://system:t7TRSmoJnO1DeZUa@cluster0.bawny.mongodb.net/
 database_mongo = "database_teste"
 # COLLECTIONS
 collection_search_history = "search_history"
-collection_books = "new_books"
+collection_books = "books"
 collection_book_rating_emails = "book_rating_emails"
+
+# KEY DO HEADER
+KEY = "WADCAlhXPqJ4UL3JwO4fkhsAV8rIyE"
