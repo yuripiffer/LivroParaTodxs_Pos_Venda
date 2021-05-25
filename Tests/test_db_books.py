@@ -1,7 +1,6 @@
 from unittest import mock, TestCase
 from DataBase.db_books import Database
 from bson.objectid import ObjectId
-import json
 
 
 class TestDatabase(TestCase):

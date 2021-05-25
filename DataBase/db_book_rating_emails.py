@@ -1,10 +1,9 @@
 from bson.objectid import ObjectId
-import config
 from DataBase import db_books
-db_books = db_books.Database()
+import config
 import pymongo
-import pandas as pd
-import json
+
+db_books = db_books.Database()
 
 """
 API DE PÓS-VENDA/RATING DO LIVRO
@@ -55,9 +54,3 @@ class DataBase:
         a coluna "was_sent" de false para true para não ser enviado novamente.
         """
         self.bre.update_one({"_id": id_books_rating_emails}, {"$set": {"was_sent": True}})
-
-
-# resultado = DataBase().bre.find({"was_sent": False})
-# print(pd.DataFrame(resultado))
-
-# DataBase().insert_orders_in_book_rating_emails([{'order_id':'60a3fb079f5cf6c89b8f22f7'}, {'order_id':'60a3fb079f5cf6c89b8f22f7'}])

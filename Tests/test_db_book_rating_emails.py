@@ -20,7 +20,3 @@ class TestDataBase(TestCase):
             mock_books.get_many_books.return_value = "valor_mockado"
             self.assertEqual(DataBase().get_book_rating_emails_by_id("60a69cd9d8aa0cbd0545d24c"), "valor_mockado")
             self.assertEqual(DataBase().get_book_rating_emails_by_id(""), ("'' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex " 'string', 500))
-
-
-
-

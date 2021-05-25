@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 import config
 import smtplib
 import requests
+
 db_book_rating_emails = db_book_rating_emails.DataBase()
 
 """ 
@@ -54,11 +55,9 @@ class MailControl:
         data_many_users = requests.post(f"http://192.268.0.74:5030/users/list", dict(_id=list_users_ids))
 
         for data_one_sale in data_many_sales:
-            print("data_one_sale", data_one_sale)
             for data_one_user in data_many_users["users"]:
                 if data_one_sale['user_id'] == data_one_user["id"]:
                     email = data_one_user["email"]
-                    print("email", email)
                     name = auth_controller.decrypt(data_one_user["first_name"], config.CRYPT_KEY)
                     if MailControl().build_email(receiver=email, title="Avaliação de Produto - Livro para Todxs",
                                              message=self.create_message(name, data_one_sale['_id'])):
@@ -81,35 +80,4 @@ class MailControl:
                   f"Equipe LIVRO PARA TODXS"
         return message
 
-
 MailControl().send_email_to_user()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###list_users_ids = [ObjectId("60a69cd9d8aa0cbd0545d24c"), ObjectId("60a69fcb63feb1663027970a")]
-
-# data_many_users = {
-#     "users": [
-#         {
-#             "email": "yuripiffer@hotmail.com",
-#             "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
-#             "id": "60a3fb759f5cf6c89b8f22fa"
-#         },
-#         {
-#             "email": "nadiavhansen@gmail.com",
-#             "first_name": "gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
-#             "id": "90a34b759f5cf6c89b8f22fb"
-#         }
-#     ]
-# }
