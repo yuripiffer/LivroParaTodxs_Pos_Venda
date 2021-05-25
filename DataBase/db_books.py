@@ -1,8 +1,6 @@
-import json
-from json.encoder import JSONEncoder
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from pymongo.errors import ConnectionFailure
+import json
 import config
 
 """
@@ -53,4 +51,3 @@ class Database:
         for id in list_id_books:
             list_objectid_books.append(ObjectId(id))
         return list_objectid_books
-
