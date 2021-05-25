@@ -1,16 +1,17 @@
 from DataBase.db_books import Database
 db_books = Database()
 
+""" 
+API DE PÓS-VENDA/RATING DO LIVRO
+SCRIPT QUE TRATA OS DADOS DE AVALIAÇÃO DO USUÁRIO RECEBIDOS DO FRONT
+E CALCULA O NOVO RATING DO LIVRO 
+"""
 
 def post_rating_controller(user_vote):
-    ### CHECAR COM O BRUNO
-    ### CHECAR COM O BRUNO
-    ### CHECAR COM O BRUNO O STATUS DE ERRO
-    ### CHECAR COM O BRUNO
     try:
         user_rating = user_vote["comment"]["user_rating"]
         if user_rating not in [1,2,3,4,5]:
-            return "Stars rating error", 400
+            return "Book rating error", 400
         book_id = user_vote["book_id"]
         if len(book_id) != 24:
             return "invalid book_id length", 400

@@ -3,29 +3,30 @@ from email.mime.text import MIMEText
 from DataBase import db_book_rating_emails
 from Controllers import auth_controller
 from bson.objectid import ObjectId
+import config
 import smtplib
 import requests
-
 db_book_rating_emails = db_book_rating_emails.DataBase()
 
-SENDER = "livroparatodxs@outlook.com"
-PASSWORD = "zFD9L2Y@bRt5"
-
-""" Camada que faz a conexão com o sistema de envio de emails
-e onde se tem a função de enviar o email
+""" 
+API DE PÓS-VENDA/RATING DO LIVRO
+ENVIO DE EMAIL PARA O USER
+O EMAIL REDIRECIONA AO FRONT, ONDE ELE FAZ A AVALIAÇÃO
 """
+
+
 class MailControl:
 
     def build_email(self, receiver: str, title: str, message: str) -> bool:
         try:
             msg = MIMEMultipart()
-            msg['From'] = SENDER
+            msg['From'] = config.SENDER
             msg['To'] = receiver
             msg['Subject'] = title
             msg.attach(MIMEText(message, 'plain'))
             server = smtplib.SMTP('SMTP.office365.com: 587')
             server.starttls()
-            server.login(msg['From'], PASSWORD)
+            server.login(msg['From'], config.PASSWORD)
             server.sendmail(msg['From'], msg['To'], msg.as_string())
             server.quit()
         except:
@@ -58,12 +59,11 @@ class MailControl:
                 if data_one_sale['user_id'] == data_one_user["id"]:
                     email = data_one_user["email"]
                     print("email", email)
-                    name = auth_controller.decrypt(data_one_user["first_name"], "K22eIoXBwOnMuJL6nRo0GOIZLGNgGa_diB_FJvUa3AY=")
+                    name = auth_controller.decrypt(data_one_user["first_name"], config.CRYPT_KEY)
                     if MailControl().build_email(receiver=email, title="Avaliação de Produto - Livro para Todxs",
                                              message=self.create_message(name, data_one_sale['_id'])):
 
                         return db_book_rating_emails.update_email_status_to_true(data_one_sale['_id'])
-
 
     def create_message(self, name, id_collection_emails):
         """

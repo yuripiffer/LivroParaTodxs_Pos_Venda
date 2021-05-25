@@ -3,20 +3,23 @@ from json.encoder import JSONEncoder
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from pymongo.errors import ConnectionFailure
+import config
+
+"""
+API DE PÓS-VENDA/RATING DO LIVRO
+CAMADA DE CONEXÃO COM A COLLECTION DE LIVROS (PRODUTOS)
+"""
 
 
 class Database:
 
     def __init__(self):
-        self.conn = MongoClient(
-            "mongodb+srv://system:t7TRSmoJnO1DeZUa@cluster0.bawny.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-            ssl=True, ssl_cert_reqs='CERT_NONE')
-        self.db = self.conn["database_teste"]
-        self.search_history = self.db["search_history"]
-        self.new_books = self.db["new_books"]
+        self.conn = MongoClient(config.URL_CLUSTER, ssl=True, ssl_cert_reqs='CERT_NONE')
+        self.db = self.conn[config.database_mongo]
+        self.search_history = self.db[config.collection_search_history]
+        self.new_books = self.db[config.collection_books]
 
     def get_rating_and_total_comments(self, id_book):
-        #TALVEZ ADAPTAR ESSAS INFOS COM O CARLOS
         try:
             book_info = list(self.new_books.find({"_id": ObjectId(id_book)}))
             actual_rating = book_info[0]["rating"]
@@ -47,8 +50,7 @@ class Database:
 
     def convert_to_object_id(self, list_id_books):
         list_objectid_books = []
-        
         for id in list_id_books:
             list_objectid_books.append(ObjectId(id))
-
         return list_objectid_books
+

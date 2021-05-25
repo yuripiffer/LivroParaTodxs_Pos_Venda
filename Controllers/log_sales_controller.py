@@ -2,8 +2,15 @@ from DataBase import db_book_rating_emails
 import requests
 from datetime import datetime, timedelta
 import json
-
 db_book_rating_emails = db_book_rating_emails.DataBase()
+
+""" 
+API DE PÓS-VENDA/RATING DO LIVRO
+SCRIPT QUE COLETA O LOG DE VENDAS DO DIA ANTERIOR E PERSISTE NA COLLECTION 
+DE EMAILS PARA ENVIAR AO USER
+"""
+
+
 def automatic_get_orders_from_yesterday():
     """
     Identifica a data de ontem,
