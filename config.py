@@ -14,10 +14,11 @@ CRYPT_KEY = "K22eIoXBwOnMuJL6nRo0GOIZLGNgGa_diB_FJvUa3AY="
 URL_CLUSTER = "mongodb+srv://system:t7TRSmoJnO1DeZUa@cluster0.bawny.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 # MONGO DATABASE
-database_mongo = "database_teste"
+database_users_search = "users_search_db"
+database_product = "product_db"
 # COLLECTIONS
 collection_search_history = "search_history"
-collection_books = "books"
+collection_book = "book"
 collection_book_rating_emails = "book_rating_emails"
 
 # KEY DO HEADER

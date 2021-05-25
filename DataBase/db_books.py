@@ -13,9 +13,11 @@ class Database:
 
     def __init__(self):
         self.conn = MongoClient(config.URL_CLUSTER, ssl=True, ssl_cert_reqs='CERT_NONE')
-        self.db = self.conn[config.database_mongo]
-        self.search_history = self.db[config.collection_search_history]
-        self.books = self.db[config.collection_books]
+        self.db_users_search = self.conn[config.database_users_search]
+        self.db_product = self.conn[config.database_product]
+
+        self.search_history = self.db_users_search[config.collection_search_history]
+        self.books = self.db_product[config.collection_book]
 
     def get_rating_and_total_comments(self, id_book):
         try:

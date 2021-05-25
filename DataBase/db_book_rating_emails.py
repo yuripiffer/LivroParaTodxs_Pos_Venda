@@ -17,8 +17,8 @@ class DataBase:
     def __init__(self):
         try:
             self.conn = pymongo.MongoClient(config.URL_CLUSTER, ssl=True, ssl_cert_reqs='CERT_NONE')
-            self.db = self.conn[config.database_mongo]
-            self.bre = self.db[config.collection_book_rating_emails]
+            self.db_users_search = self.conn[config.database_users_search]
+            self.bre = self.db_users_search[config.collection_book_rating_emails]
         except:
             raise Exception("Failed to connect with the TestDataBase, check your string connection!!")
 
