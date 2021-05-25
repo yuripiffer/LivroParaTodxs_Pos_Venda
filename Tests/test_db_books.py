@@ -25,7 +25,7 @@ class TestDatabase(TestCase):
     @mock.patch("DataBase.db_books.Database.books", create=True)
     def test_get_many_books(self, mock_books):
         mock_books.find.return_value = []
-        self.assertEqual(Database().get_many_books([]), ('[]', 200))
+        self.assertEqual(Database().get_many_books(["60a69cd9d8aa0fbd0541d24c", "12b69cd9d8aa0fbd0541d24c"]), ('[]', 200))
         self.assertEqual(Database().get_many_books(["errado"]), ("'errado' is not a valid ObjectId, it must be a 12-byte input or a 24-character " 'hex string', 500))
 
     def test_convert_to_object_id(self):
