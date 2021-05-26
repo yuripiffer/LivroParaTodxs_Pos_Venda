@@ -50,9 +50,10 @@ class MailControl:
         data_many_sales = list(data_many_sales)
         if status == 200 and len(data_many_sales)>0:
             for dict_sales in data_many_sales:
-                list_users_ids.append(ObjectId(dict_sales["user_id"]))
-
-        data_many_users = requests.post(f"http://192.268.0.74:5030/users/list", dict(_id=list_users_ids))
+                list_users_ids.append(dict_sales["user_id"])                
+                
+        headers = {'content-type': 'application/json', 'KEY': "WADCAlhXPqJ4UL3JwO4fkhsAV8rIyE"}
+        data_many_users = requests.post(f"http://192.168.0.74:5030/users/list", json=dict(_id=list_users_ids), headers=headers).json()                            
 
         for data_one_sale in data_many_sales:
             for data_one_user in data_many_users["users"]:

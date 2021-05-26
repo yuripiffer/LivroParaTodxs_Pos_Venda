@@ -33,8 +33,9 @@ class DataBase:
         except:
             return "Error: Could not connect", 500
 
-    def insert_orders_in_book_rating_emails(self, query):
-        self.bre.insert_many(query)
+    def insert_orders_in_book_rating_emails(self, query):        
+        self.bre.insert(query)
+        
 
     def get_book_rating_emails_by_id(self, id_book_rating_emails):
         """

@@ -8,5 +8,5 @@ ARQUIVO QUE DEVERÁ SER EXECUTADO TODO DIA AUTOMATICAMENTE
 PELO AGENDAMENTO DE TAREFAS DO WINDOWS
 """
 
-# log_sales_controller.automatic_get_sales_from_yesterday()
-# class_email.send_email_to_user()
+log_sales_controller.automatic_get_orders_from_yesterday()
+class_email.send_email_to_user()
